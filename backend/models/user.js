@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-import { Password } from './password.js';
+const { Password } = require('./password');
 
-var User = mongoose.model('User', {
+let User = mongoose.model('User', {
     username: {type: String},
     password: {type: String},
-    passwordList: (type: [Password])
+    passwordList: {type: [Password]}
 });
 
 module.exports = { User };
