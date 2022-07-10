@@ -17,8 +17,8 @@ export class UserService {
     return this.http.post(this.baseURL, u);
   }
 
-  getUser(){
-    return this.http.get(this.baseURL);
+  getUsers(){
+    return this.http.get<User[]>(this.baseURL);
   }
 
   putUser(u: User){

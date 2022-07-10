@@ -2,10 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from '@angular/router';
+import { PasswordpageComponent } from './passwordpage/passwordpage.component';
+import { ChangepassComponent } from './changepass/changepass.component';
+import { CreateacctComponent } from './createacct/createacct.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path:'', redirectTo:'/login', pathMatch:'full'}
+  {path: 'logIn', component: LoginComponent},
+  {path:'', redirectTo:'/logIn', pathMatch:'full'},
+  {path: 'passwordPage', component: PasswordpageComponent},
+  {path: 'changePass', component: ChangepassComponent},
+  {path: 'createAcct', component: CreateacctComponent}
 ];
 
 @NgModule({
