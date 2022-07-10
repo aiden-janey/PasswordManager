@@ -5,6 +5,7 @@ let router = express.Router();
 let { User } = require('../models/user.js');
 
 //Retrieve Data
+//Used to get Users to verify login
 router.get('/', (req, res)=>{
     User.find((err, docs)=>{
         if(!err){ 
@@ -16,6 +17,7 @@ router.get('/', (req, res)=>{
 });
 
 //Submits Data
+//Used to create new Users
 router.post('/', (req, res)=>{
     let u = new User({
         username: req.body['username'],
