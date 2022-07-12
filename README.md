@@ -11,6 +11,3 @@ Back-End:
 
 Overview
 This is an web development project started in June 2022 using the MEAN stack. It's a Multi-page App (MPA) that uses the Model-View-Control (MVC) design pattern to construct a working password manager, with the ability to add, delete, store, and edit passwords. The user registers an account with the app, then proceeds to log in to interact with the 
-
-Goals:
-* Add Security to the app.
