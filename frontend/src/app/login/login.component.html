@@ -1,16 +1,20 @@
 <div class="container">
-    <div class="row">
-        <h1>Password Manager Login</h1>
-    </div>
-    <div class="row card">
-            <label>Username</label><br>
-            <input type="text" placeholder="Enter Username" id="username" name="username" [(ngModel)]="username" required><br>
-            <label>Password</label><br>
-            <input type="password" placeholder="Enter Password" id="password" name="password" [(ngModel)]="password" required><br>
-            <button type="button" (click)="checkCredentials()">Log In</button>
-        <nav>
-            <a routerLink="/createAcct">Need an Account?</a>
-            <a routerLink="/changePass">Forgot Password?</a>
-        </nav>
+    <div class="card">
+        <div class="card-header">
+            <h2>Login</h2>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-center align-self-center">
+                <label>Username</label>
+                <input type="text" placeholder="Enter Username" id="username" name="username" [(ngModel)]="username" required><br>
+                <label>Password</label>
+                <input type="password" placeholder="Enter Password" id="password" name="password" [(ngModel)]="password" required><br>
+                <button type="button" (click)="checkCredentials()">Log In</button>
+            </div>
+            <div class="row">
+                <a class="col" routerLink="/createAcct">Need an Account?</a>
+                <a class="col" routerLink="/changePass">Forgot Password?</a>
+            </div>
+        </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { User } from '../shared/user.model';
 import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
 
 @Component({
   selector: 'app-createacct',
@@ -22,7 +23,7 @@ export class CreateacctComponent implements OnInit {
   createAccount(): void{
     let user = new User();
     user.username = this.username;
-    user.password = this.password;
+    user.password = crypto.SHA3(this.password).toString(crypto.enc.Base64);
 
     this.US.postUser(user).subscribe(()=>{
       alert('Account Created');

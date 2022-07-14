@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+h1, p{
+    color: white;
+}
+
+header, footer{
+    text-align: center;
+    padding: 3pt;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+
+app-root{
+    transform: translate(-50%, -50%);
+}

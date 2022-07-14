@@ -8,6 +8,7 @@ import { CreateacctComponent } from './createacct/createacct.component';
 import { ChangepassComponent } from './changepass/changepass.component';
 import { PasswordpageComponent } from './passwordpage/passwordpage.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddpasswordComponent } from './addpassword/addpassword.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     CreateacctComponent,
     ChangepassComponent,
-    PasswordpageComponent
+    PasswordpageComponent,
+    AddpasswordComponent,
   ],
   imports: [
     BrowserModule,
