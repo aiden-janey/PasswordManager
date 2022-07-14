@@ -4,8 +4,7 @@ let router = express.Router();
 
 let { User } = require('../models/user.js');
 
-//Retrieve Data
-//Used to get Users to verify login
+//Get All Users
 router.get('/', (req, res)=>{
     User.find((err, docs)=>{
         if(!err){ 
@@ -16,8 +15,37 @@ router.get('/', (req, res)=>{
     });
 });
 
-//Submits Data
-//Used to create new Users
+//Get A User
+router.get('/:id', (req, res)=>{
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send('User Not Found');
+
+    User.findById(req.params.id,(err, doc)=>{
+        if(!err){
+            res.send(doc);
+        }
+        else{
+            console.log(`Error in Retrieving User: ${JSON.stringify(err, undefined, 2)}`);
+        }
+    });
+});
+
+//Get A User's Password List
+router.get('/:id/list', (req, res)=>{
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send('User Not Found');
+
+    User.findById(req.params.id,(err, doc)=>{
+        if(!err){
+            res.send(doc.passwordList);
+        }
+        else{
+            console.log(`Error in Retrieving User: ${JSON.stringify(err, undefined, 2)}`);
+        }
+    });
+});
+
+//Create A User
 router.post('/', (req, res)=>{
     let u = new User({
         username: req.body['username'],
@@ -34,7 +62,22 @@ router.post('/', (req, res)=>{
     });
 });
 
-//Update Data
+// //Put A Password in User's List
+// router.put('/:id/list', (req, res)=>{
+//     if(!ObjectId.isValid(req.params.id))
+//         return res.status(400).send('User Not Found');
+        
+//     User.findByIdAndUpdate(req.params.id, {$set: u}, {new: true}, (err, doc)=>{
+//         if(!err){
+//             res.send(doc);
+//         }
+//         else{
+//             console.log(`Error in User Update: ${JSON.stringify(err, undefined, 2)}`);
+//         }
+//     });
+// });
+
+//Update User Data
 router.put('/:id', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No Record w/ Given ID: ${req.params.id}`);
@@ -55,7 +98,7 @@ router.put('/:id', (req, res)=>{
     });
 });
 
-//Delete Data
+//Delete User
 router.delete('/:id', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No Record w/ Given Id: ${req.params.id}`);
