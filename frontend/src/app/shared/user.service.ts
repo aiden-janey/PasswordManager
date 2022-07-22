@@ -26,8 +26,9 @@ export class UserService {
     return this.http.get<User[]>(this.baseURL);
   }
 
-  putUser(_id: string, user: User){
-    return this.http.put(this.baseURL + `/${_id}`, user);
+  //Update User
+  putUserList(user: User){
+    return this.http.put(this.baseURL + `/${user._id}`, user);
   }
 
   deleteUser(_id: string){
