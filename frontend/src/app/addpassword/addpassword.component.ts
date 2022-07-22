@@ -27,15 +27,16 @@ export class AddpasswordComponent implements OnInit {
   }
 
   createPassword(): void{
-    let password = new Password();
-    password.site = this.site;
-    password.user = this.user;
-    password.pass = this.pass;
+    let password = {
+      site: this.site,
+      user: this.user,
+      pass: this.pass
+    };
     //let encrypted = crypto.AES.encrypt(JSON.stringify(password), this.id!).toString();
     this.US.passwords.push(password);
-    console.log(password);
-    this.US.putUser(this.US.selectedUser._id, this.US.selectedUser);
-    this.route.navigate(['/passwordPage']);
+    this.US.putUserList(this.US.selectedUser);
+    console.log('clicked');
+    //this.route.navigate(['/passwordPage']);
   }
 
   getUS(): UserService{
@@ -52,5 +53,40 @@ export class AddpasswordComponent implements OnInit {
     this.US.getUserPasswords(id).subscribe((res)=>{
       this.US.passwords = res as Password[];
     });
+  }
+
+  generatePass(): string{
+    const nums: string[] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+    "k", "l", "m", "n", "o", "p", "q","r", "s", "t", "u", "v", "w","x","y","z"];
+    const special: string[] = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", 
+    "=", "+", "~", "`", "?", "/", "|", "<", ">", ":", ";", "]", "[", "{", "}"];
+    let gennedPass: string = "";
+    for(let i:number = 0; i < 15; i++){
+      let indexChar: number = Math.floor(Math.random()*4);
+      let arrayIndex: number;
+      switch(indexChar)
+      {
+          case 0:
+              //lowercase letter
+              arrayIndex = Math.floor(Math.random()*letters.length-1);
+              gennedPass += letters[arrayIndex];
+              break;
+          case 1:
+              //uppercase letter
+              arrayIndex = Math.floor(Math.random()*letters.length-1);
+              gennedPass+= letters[arrayIndex].toUpperCase();
+              break;
+          case 2:
+              arrayIndex = Math.floor(Math.random()*nums.length-1);
+              gennedPass += nums[arrayIndex];
+              break;
+          default:
+              arrayIndex = Math.floor(Math.random()*special.length-1);
+              gennedPass += special[arrayIndex];
+              break;   
+      }
+    }
+    return gennedPass;
   }
 }
