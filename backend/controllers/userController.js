@@ -33,7 +33,7 @@ router.get('/:id', (req, res)=>{
 //Get A User's Password List
 router.get('/:id/list', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('User Not Found');
+        return res.status(400).send(`No User with ID: ${req.params.id}`);
 
     User.findById(req.params.id,(err, doc)=>{
         if(!err){
@@ -62,33 +62,16 @@ router.post('/', (req, res)=>{
     });
 });
 
-// //Put A Password in User's List
-// router.put('/:id/list', (req, res)=>{
-//     if(!ObjectId.isValid(req.params.id))
-//         return res.status(400).send('User Not Found');
-        
-//     User.findByIdAndUpdate(req.params.id, {$set: u}, {new: true}, (err, doc)=>{
-//         if(!err){
-//             res.send(doc);
-//         }
-//         else{
-//             console.log(`Error in User Update: ${JSON.stringify(err, undefined, 2)}`);
-//         }
-//     });
-// });
-
-//Update User Data
+//Update User Password List
 router.put('/:id', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No Record w/ Given ID: ${req.params.id}`);
+        return res.status(400).send(`No User with ID: ${req.params.id}`);
 
     let u = {
-        username: req.body['username'],
-        password: req.body['password'],
         passwordList: req.body['passwordList']
     };
 
-    User.findByIdAndUpdate(req.params.id, {$set: u}, {new: true}, (err, doc)=>{
+    User.findByIdAndUpdate(req.params.id, {$set: u.passwordList}, {new: true}, (err, doc)=>{
         if(!err){
             res.send(doc);
         }
