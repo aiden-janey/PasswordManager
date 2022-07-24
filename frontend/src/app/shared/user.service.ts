@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
 import { User } from './user.model';
 import { Password } from './password.model';
 
@@ -26,9 +26,9 @@ export class UserService {
     return this.http.get<User[]>(this.baseURL);
   }
 
-  //Update User
-  putUserList(user: User){
-    return this.http.put(this.baseURL + `/${user._id}`, user);
+  //Update User List
+  putUserList(_id: string, list: Password[]){
+    return this.http.put<Password[]>(this.baseURL + `/${_id}/list`, list);
   }
 
   deleteUser(_id: string){

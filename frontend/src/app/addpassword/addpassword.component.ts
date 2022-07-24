@@ -34,9 +34,11 @@ export class AddpasswordComponent implements OnInit {
     };
     //let encrypted = crypto.AES.encrypt(JSON.stringify(password), this.id!).toString();
     this.US.passwords.push(password);
-    this.US.putUserList(this.US.selectedUser);
-    console.log('clicked');
-    //this.route.navigate(['/passwordPage']);
+    this.US.putUserList(this.US.selectedUser._id, this.US.passwords).subscribe((res)=>{
+      res = this.US.passwords;
+      console.log(res);
+    });
+    this.route.navigate(['/passwordPage']);
   }
 
   getUS(): UserService{

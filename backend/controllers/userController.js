@@ -63,7 +63,7 @@ router.post('/', (req, res)=>{
 });
 
 //Update User Password List
-router.put('/:id', (req, res)=>{
+router.put('/:id/list', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No User with ID: ${req.params.id}`);
 
