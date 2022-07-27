@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     for(let user of this.US.users){
       if(this.username == user.username && crypto.SHA3(this.password).toString(crypto.enc.Base64) == user.password){
         userFoundFlag++;
-        sessionStorage.setItem('userId', user._id);
+        sessionStorage.setItem('uid', user._id);
         this.route.navigate(['/passwordPage']);
       }
     }

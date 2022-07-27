@@ -27,8 +27,8 @@ export class UserService {
   }
 
   //Update User List
-  putUserList(_id: string, list: Password[]){
-    return this.http.put<Password[]>(this.baseURL + `/${_id}/list`, list);
+  putUserList(u: User){
+    return this.http.put(this.baseURL + `/${u._id}/list`, u);
   }
 
   deleteUser(_id: string){

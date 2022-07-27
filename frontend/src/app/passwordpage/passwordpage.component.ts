@@ -14,8 +14,7 @@ export class PasswordpageComponent implements OnInit {
 
   constructor(private US: UserService, private route: Router) { }
 
-  decryptedPasswords: Password[]
-  id = sessionStorage.getItem('userId');
+  id = sessionStorage.getItem('uid');
 
   ngOnInit(): void {
     this.getUser(this.id);
@@ -27,7 +26,7 @@ export class PasswordpageComponent implements OnInit {
   }
 
   endSession(): void{
-    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('uid');
   }
 
   getUser(id: string|null): void {
@@ -39,14 +38,15 @@ export class PasswordpageComponent implements OnInit {
   getUserPass(id: string|null): void{
     this.US.getUserPasswords(id).subscribe((res)=>{
       this.US.passwords = res as Password[];
+      // this.decryptPasswords(res as [], id);
     })
   }
 
-  // decryptPasswords(list: Password[], id: string|null){
-  //   for(let password of list){
-  //     let decrypted = JSON.parse(crypto.AES.decrypt(password, id).toString(crypto.enc.Utf8));
-  //     this.decryptPasswords.push(decrypted);
-  //   }
-  // }
+  decryptPasswords(list: Password[], id: string|null){
+    for(let password of list as any[]){
+      let decrypted = JSON.parse(crypto.AES.decrypt(password, id!).toString(crypto.enc.Utf8));
+      this.US.passwords.push(decrypted);
+    }
+  }
 }
 

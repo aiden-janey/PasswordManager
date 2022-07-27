@@ -18,8 +18,8 @@ export class AddpasswordComponent implements OnInit {
   site: string;
   user: string;
   pass: string;
-  id = sessionStorage.getItem('userId');
-  encryptedPasswords: Password[];
+  id = sessionStorage.getItem('uid');
+  encryptedPasswords: string[];
 
   ngOnInit(): void {
     this.getUser(this.id);
@@ -32,12 +32,14 @@ export class AddpasswordComponent implements OnInit {
       user: this.user,
       pass: this.pass
     };
-    //let encrypted = crypto.AES.encrypt(JSON.stringify(password), this.id!).toString();
+    // let encrypted = crypto.AES.encrypt(JSON.stringify(password), this.id!).toString();
     this.US.passwords.push(password);
-    this.US.putUserList(this.US.selectedUser._id, this.US.passwords).subscribe((res)=>{
-      res = this.US.passwords;
-      console.log(res);
-    });
+    let updatedUser = new User();
+    updatedUser._id = this.US.selectedUser._id;
+    updatedUser.username = this.US.selectedUser.username;
+    updatedUser.password = this.US.selectedUser.password;
+    updatedUser.passwordList = this.US.passwords as [];
+    this.US.putUserList(updatedUser).subscribe();
     this.route.navigate(['/passwordPage']);
   }
 
@@ -51,12 +53,14 @@ export class AddpasswordComponent implements OnInit {
     });
   }
 
+  //Get Current User's Password List
   getUserPass(id: string|null): void{
     this.US.getUserPasswords(id).subscribe((res)=>{
       this.US.passwords = res as Password[];
     });
   }
 
+  //Generate a Password
   generatePass(): string{
     const nums: string[] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     const letters: string[] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",

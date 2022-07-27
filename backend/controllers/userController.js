@@ -66,8 +66,15 @@ router.post('/', (req, res)=>{
 router.put('/:id/list', (req, res)=>{
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No User with ID: ${req.params.id}`);
+    
+    var user = {
+        _id: req.body._id,
+        username: req.body.username,
+        password: req.body.password,
+        passwordList: req.body.passwordList
+    };
 
-    User.findByIdAndUpdate(req.params.id, {$set: {passwordList: req.body['passwordList']}}, {new: true}, (err, doc)=>{
+    User.findByIdAndUpdate(req.params.id, user, {overwrite: true}, (err, doc)=>{
         if(!err){
             res.send(doc);
         }
