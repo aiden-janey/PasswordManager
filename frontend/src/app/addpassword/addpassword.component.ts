@@ -19,7 +19,6 @@ export class AddpasswordComponent implements OnInit {
   user: string;
   pass: string;
   id = sessionStorage.getItem('uid');
-  encryptedPasswords: string[];
 
   ngOnInit(): void {
     this.getUser(this.id);
@@ -41,10 +40,6 @@ export class AddpasswordComponent implements OnInit {
     updatedUser.passwordList = this.US.passwords as [];
     this.US.putUserList(updatedUser).subscribe();
     this.route.navigate(['/passwordPage']);
-  }
-
-  getUS(): UserService{
-    return this.US;
   }
 
   getUser(id: string|null): void {
